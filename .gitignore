@@ -1,0 +1,14 @@
+/#config.el#
+/.org-id-locations
+/auto-save-list
+/bookmarks
+/config.el
+/elpa
+/eshell
+/ido.last
+/org-persist
+/org-roam.db
+/quelpa
+/to-be-dumped.el
+/transient
+/xkcd
