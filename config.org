@@ -219,6 +219,18 @@ Delete intermediate buffers when navigating through dired.
     :config
     (setq custom-file (concat user-emacs-directory "to-be-dumped.el")))
 #+END_SRC
+** Custom keybind snippets
+Define the insert snippet function which will help us later on
+#+BEGIN_SRC emacs-lisp
+  (defun insert-snippet (snpt)
+    "Insert a short snippet at the current cursor position."
+    (interactive)
+    (insert snpt))
+#+END_SRC
+Define the keybinds with the snippets
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c s c") '(insert-snippet "#BEGIN_SRC\n#+END_SRC"))
+#+END_SRC
 * Third-party packages
 Many Emacsers love having tons of packages -- and that's absolutely
 fine! However, one of the goals of the Yay-Evil distro is to provide
@@ -233,7 +245,7 @@ controls the Evil behaviors.
 
 Normally, we need to add ~:ensure t~ to tell ~use-package~ to download packages when it's not available. But since we've added ~use-package-always-ensure~ in ~init.el~, we can omit it.
 ** Quelpa
-*** Quelpa Setuo
+*** Quelpa Setup
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'quelpa)
     (with-temp-buffer
@@ -248,6 +260,24 @@ Normally, we need to add ~:ensure t~ to tell ~use-package~ to download packages 
      :fetcher git
      :url "https://github.com/quelpa/quelpa-use-package.git"))
   (require 'quelpa-use-package)
+#+END_SRC
+** Multiple Major Modes
+*** Install Polymode
+Install polymode from the default channel
+#+BEGIN_SRC emacs-lisp
+  (use-package polymode
+    :ensure t)
+#+END_SRC
+Install polymode from the melpa stable channel
+#+BEGIN_SRC emacs-lisp
+;  (use-package polymode
+;    :ensure t
+;    :pin melpa-stable)
+#+END_SRC
+*** Setup Polymode
+Setup polymode for markdown and orgmode
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.md" . poly-mardown-mode))
 #+END_SRC
 ** GUI enhancements
 *** Install Nerd Icons
@@ -283,9 +313,9 @@ sequences (e.g. ~\n, \t~).
 *** Doom Modeline
 Setting up a better modeline from the doom package
 #+BEGIN_SRC emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :hook (after-init . doom-modeline-mode))
+;  (use-package doom-modeline
+;    :ensure t
+;    :hook (after-init . doom-modeline-mode))
 #+END_SRC
 ** Vi keybindings
 I personally find Vi(m) bindings to be the most efficient way of
@@ -364,6 +394,19 @@ purpose.
   (use-package flx-ido :config (flx-ido-mode +1))
 #+END_SRC
 ** Programming language support and utilities
+*** LSP
+Setup lsp-mode and lsp-ui
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :commands lsp
+    :hook (prog-mode . lsp)
+    :config (setq lsp-prefer-flymake nil))
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode
+    :config (setq lsp-ui-doc-position 'top))
+#+END_SRC
 *** Company for auto-completion
 Use ~C-n~ and ~C-p~ to navigate the tooltip.
 #+BEGIN_SRC emacs-lisp
@@ -414,6 +457,86 @@ Setup the json mode [[https://github.com/json-emacs/json-mode]]
 Setup JavaScript Development
 #+BEGIN_SRC emacs-lisp
   (use-package js2-mode
+    :ensure t)
+#+END_SRC
+**** Java
+Setup java-lsp for code completion
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-java
+    :ensure t
+    :config (add-hook 'java-mode-hook #'lsp))
+#+END_SRC
+Setup gradle & maven support to be able to work with projects
+#+BEGIN_SRC emacs-lisp
+  (use-package mvn
+    :ensure t)
+  (use-package gradle-mode
+    :ensure t)
+#+END_SRC
+**** Kotlin
+Setup Kotlin mode
+#+BEGIN_SRC emacs-lisp
+  (use-package kotlin-mode
+    :ensure t)
+#+END_SRC
+**** Scala
+Setup Scala and sbt support
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-metals
+    :ensure t
+    :config (add-hook 'scala-mode-hook #'lsp))
+#+END_SRC
+**** C/C++
+Setup C lsp
+#+BEGIN_SRC emacs-lisp
+  (use-package ccls
+    :ensure t)
+#+END_SRC
+Advanced cmake config
+#+BEGIN_SRC emacs-lisp
+  (use-package cmake-ide
+    :ensure t)
+#+END_SRC
+**** Haskell
+Install the official haskell mode
+#+BEGIN_SRC emacs-lisp
+  (use-package haskell-mode
+    :ensure t)
+#+END_SRC
+**** Rust
+Rust mode (official)
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :ensure t)
+
+  (add-hook 'rust-mode-hook
+            (lambda () (setq indent-tabs-mode nil)))
+  (add-hook 'rust-mode-hook
+            (lambda () (prettify-symbols-mode)))
+  (setq rust-format-on-save t)
+#+END_SRC
+Setup cargo mode
+#+BEGIN_SRC emacs-lisp
+  (use-package cargo-mode
+    :config (add-hook 'rust-mode-hook 'cargo-minor-mode))
+  (setq compilation-scroll-output t)
+#+END_SRC
+**** Common Lisp
+Install sly
+#+BEGIN_SRC emacs-lisp
+  (use-package sly
+    :ensure t)
+#+END_SRC
+**** Clojure
+Install cider the clojure mode of choice
+#+BEGIN_SRC emacs-lisp
+  (use-package cider
+    :ensure t)
+#+END_SRC
+**** Racket
+Install Racket mode
+#+BEGIN_SRC emacs-lisp
+  (use-package racket-mode
     :ensure t)
 #+END_SRC
 ** GitHub Copilot
@@ -496,9 +619,15 @@ Provides us with hints on available keystroke combinations.
   (use-package which-key
     :diminish which-key-mode
     :config
-    (which-key-mode +1)
+    (which-key-mode 1)
     (setq which-key-idle-delay 0.4
           which-key-idle-secondary-delay 0.4))
+#+END_SRC
+*** TLDR
+Setup tldr site support for quick lookups
+#+BEGIN_SRC emacs-lisp
+  (use-package tldr
+    :ensure t)
 #+END_SRC
 *** Configure PATH on macOS
 #+BEGIN_SRC emacs-lisp
