@@ -23,7 +23,8 @@ indentation width you prefer in the ~web-mode~ section.)
     (setq frame-title-format '("I'm Evil") ; Yayyyyy Evil!
           ring-bell-function 'ignore       ; minimize distraction
           frame-resize-pixelwise t
-          default-directory "~/")
+          default-directory "~/"
+          auto-save-default nil)
 
     (tool-bar-mode -1)
     (menu-bar-mode -1)
@@ -311,6 +312,12 @@ Install the kaolin theme (not used anymore aswell)
 ;    :config
 ;    (load-theme 'kaolin-dark t)
 ;    (kaolin-treemacs-theme))
+#+END_SRC
+Install the catppuccin Theme (will be used in the future)
+#+BEGIN_SRC emacs-lisp
+;  (use-package catppuccin-theme
+;    :ensure t)
+;  (load-theme 'catppuccin :no-confirm)
 #+END_SRC
 *** Dashboard welcome page
 #+BEGIN_SRC emacs-lisp
