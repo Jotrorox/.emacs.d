@@ -12,3 +12,10 @@
 /to-be-dumped.el
 /transient
 /xkcd
+/.cache
+/lsp-session-v1
+/.vscode
+/eclipse.jdt.ls
+/snippets
+/workspace
+/.lsp-session-v1

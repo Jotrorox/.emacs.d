@@ -285,10 +285,32 @@ Setup polymode for markdown and orgmode
   (use-package nerd-icons
     :ensure t)
 #+END_SRC
+*** Better Parenthesis
+Install Rainbow delimiters for colored paranthises
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+END_SRC
 *** Load custom theme
+Load custom installed themes
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
-  (load-theme 'wilmersdorf t) ; an orginal theme created by me.
+  (load-theme 'biscuit t)
+#+END_SRC
+Install the nord theme (not used anymore)
+#+BEGIN_SRC emacs-lisp
+;  (use-package nord-theme
+;    :ensure t)
+;  (load-theme 'nord t)
+#+END_SRC
+Install the kaolin theme (not used anymore aswell)
+#+BEGIN_SRC emacs-lisp
+;  (use-package kaolin-themes
+;    :ensure t
+;    :config
+;    (load-theme 'kaolin-dark t)
+;    (kaolin-treemacs-theme))
 #+END_SRC
 *** Dashboard welcome page
 #+BEGIN_SRC emacs-lisp
@@ -394,6 +416,14 @@ purpose.
   (use-package flx-ido :config (flx-ido-mode +1))
 #+END_SRC
 ** Programming language support and utilities
+*** Snippets
+Setup and enable the yasnippet minor mode
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t)
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+#+END_SRC
 *** LSP
 Setup lsp-mode and lsp-ui
 #+BEGIN_SRC emacs-lisp
