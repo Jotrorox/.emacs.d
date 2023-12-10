@@ -19,3 +19,6 @@
 /snippets
 /workspace
 /.lsp-session-v1
+/eln-cache
+/url
+/.dap-breakpoints

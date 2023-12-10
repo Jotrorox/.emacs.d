@@ -20,7 +20,7 @@ indentation width you prefer in the ~web-mode~ section.)
     :preface
     (defvar ian/indent-width 4) ; change this value to your preferred width
     :config
-    (setq frame-title-format '("I'm Evil") ; Yayyyyy Evil!
+    (setq frame-title-format '("I'm evil!") ; Yayyyyy Evil!
           ring-bell-function 'ignore       ; minimize distraction
           frame-resize-pixelwise t
           default-directory "~/"
@@ -297,7 +297,7 @@ Install Rainbow delimiters for colored paranthises
 Load custom installed themes
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
-  (load-theme 'biscuit t)
+;  (load-theme 'biscuit t)
 #+END_SRC
 Install the nord theme (not used anymore)
 #+BEGIN_SRC emacs-lisp
@@ -315,9 +315,11 @@ Install the kaolin theme (not used anymore aswell)
 #+END_SRC
 Install the catppuccin Theme (will be used in the future)
 #+BEGIN_SRC emacs-lisp
-;  (use-package catppuccin-theme
-;    :ensure t)
-;  (load-theme 'catppuccin :no-confirm)
+  (use-package catppuccin-theme
+    :ensure t)
+  (setq catppuccin-flavor 'macchiato) ;; or 'latte, 'macchiato, or 'mocha frappe
+  (catppuccin-reload)
+  (load-theme 'catppuccin :no-confirm)
 #+END_SRC
 *** Dashboard welcome page
 #+BEGIN_SRC emacs-lisp
@@ -576,6 +578,26 @@ Install Racket mode
   (use-package racket-mode
     :ensure t)
 #+END_SRC
+**** OCaml
+=Ocaml my caml - Primagean=
+#+BEGIN_SRC emacs-lisp
+  (use-package tuareg
+    :ensure t)
+
+  (add-hook 'tuareg-mode-hook
+            (lambda() (setq tuareg-mode-name "🐫")))
+#+END_SRC
+**** Go
+Setup go mode for the full go expirience
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t)
+#+END_SRC
+Setup Go playgrounds for quick development
+#+BEGIN_SRC emacs-lisp
+  (use-package go-playground
+    :ensure t)
+#+END_SRC
 ** GitHub Copilot
 A Basic Copilot Setup
 #+BEGIN_SRC emacs-lisp
@@ -606,6 +628,8 @@ h3...) a more visually pleasing look.
     :bind (("C-c o c" . org-edit-src-code)))
 
   (use-package org-bullets :hook (org-mode . org-bullets-mode))
+
+  (setq org-startup-with-inline-images t)
 #+END_SRC
 *** Org Roam
 Install and configure org roam
@@ -613,7 +637,7 @@ Install and configure org roam
   (use-package org-roam
     :ensure t
     :custom
-    (org-roam-directory "~/Notes")
+    (org-roam-directory "~/notes")
     (org-roam-completion-everywhere t)
     (org-roam-capture-templates
      '(("d" "default" plain
@@ -623,7 +647,7 @@ Install and configure org roam
        ("l" "programmiersprache" plain
         "* Charaktereigenschaften: \n\n- Familie: %?\n- Inspiriert von: \n\n* Ressourcen *"
         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-        :unarrowed t))
+        :unarrowed t)))
      :bind (("C-c n l" . org-roam-buffer-toggle)
             ("C-c n f" . org-roam-node-find)
             ("C-c n i" . org-roam-node-insert)
