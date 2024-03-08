@@ -1,0 +1,12 @@
+.cache
+.auto-save-list
+eclipse.jdt.ls 
+eln-cache
+elpa
+snippets
+transient
+workspace
+.lsp-session-v1
+config.el 
+ido.last
+to-be-dumped.el
