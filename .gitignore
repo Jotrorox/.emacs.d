@@ -10,3 +10,5 @@ workspace
 config.el 
 ido.last
 to-be-dumped.el
+org-persist/index
+org-persist

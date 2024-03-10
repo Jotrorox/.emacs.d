@@ -533,6 +533,14 @@ Provides us with hints on available keystroke combinations.
     (setq which-key-idle-delay 0.4
           which-key-idle-secondary-delay 0.4))
 #+END_SRC
+*** Ement.el
+The Ement.el client allows chatting with Matrix chatrooms right inside of emacs
+#+BEGIN_SRC emacs-lisp
+  (use-package ement)
+
+  (global-set-key (kbd "C-x M-m c") 'ement-connect)
+  (global-set-key (kbd "C-x M-m l") 'ement-list-rooms)
+#+END_SRC
 *** Configure PATH on macOS
 #+BEGIN_SRC emacs-lisp
   (use-package exec-path-from-shell
