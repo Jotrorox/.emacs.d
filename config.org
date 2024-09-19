@@ -438,6 +438,13 @@ more customization options.
      :fetcher git
      :url "https://github.com/c3lang/c3-ts-mode"))
 #+END_SRC
+**** Nix
+Nix is a powerful functional programming Lanugage that is used
+to configure nix-envs aswell as the Nix Operating System. Here
+we will use the official nix-mode provided by NixOS.
+#+BEGIN_SRC emacs-lisp
+  (use-package nix-mode :ensure t)
+#+END_SRC
 *** GitHub Copilot
 One of the best autocompletion AI integrations in my opinion. It
 is not officially supported in Emacs and needs node installed.
